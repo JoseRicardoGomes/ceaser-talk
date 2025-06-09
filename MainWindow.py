@@ -10,10 +10,8 @@ from PyQt6.QtWidgets import (
     QLineEdit,
     QWidget,
     QFileDialog,
-    QMenuBar,
 )
 from PyQt6.QtGui import (
-    QIcon, 
     QAction
 )
 from encrypton.ceaser import encode, decode
@@ -46,11 +44,17 @@ class MainWindow(QMainWindow):
         """
         menuBar = self.menuBar()
 
-        outputMenu = menuBar.addMenu("Output")
+        outputMenu = menuBar.addMenu("Text")
 
         clearOutputAction = QAction("Clear Output", self)
         clearOutputAction.setShortcut("Ctrl+L")
         clearOutputAction.triggered.connect(self.clear_output)
+
+        clearInputAction = QAction("Clear Input", self)
+        clearInputAction.setShortcut("Ctrl+I")
+        clearInputAction.triggered.connect(self.clear_input)
+
+        outputMenu.addAction(clearInputAction)
         outputMenu.addAction(clearOutputAction)
 
     def setup_ui(self):
@@ -147,3 +151,9 @@ class MainWindow(QMainWindow):
         Clear the contents of the output text area.
         """
         self.outputText.setPlainText("")
+    
+    def clear_input(self):
+        """
+        Clear the contents of the input text area.
+        """
+        self.inputText.setPlainText("")
